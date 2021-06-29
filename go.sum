@@ -2,6 +2,8 @@ github.com/Unleash/unleash-client-go/v3 v3.2.0 h1:rU3xTBe5hj1dQeFJxjBp0nwsVnq9gc
 github.com/Unleash/unleash-client-go/v3 v3.2.0/go.mod h1:hdNXd6qanC5RBGO5DuZC7qraujjeE/lyz8F1WUHwcjY=
 github.com/Unleash/unleash-client-go/v3 v3.2.1 h1:hNUUDXktanecDB/XCQGOhrOHEx+aE3Cnd0VmR3q+rGY=
 github.com/Unleash/unleash-client-go/v3 v3.2.1/go.mod h1:hdNXd6qanC5RBGO5DuZC7qraujjeE/lyz8F1WUHwcjY=
+github.com/Unleash/unleash-client-go/v3 v3.2.2 h1:PZ3+6M6UUqstYAtAjYBffv2A+As5B2gd3lTvbpk4F4s=
+github.com/Unleash/unleash-client-go/v3 v3.2.2/go.mod h1:hdNXd6qanC5RBGO5DuZC7qraujjeE/lyz8F1WUHwcjY=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

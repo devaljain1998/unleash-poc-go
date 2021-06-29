@@ -9,6 +9,7 @@ import (
 	"os"
 
 	"github.com/Unleash/unleash-client-go/v3"
+	"github.com/Unleash/unleash-client-go/v3/api"
 	"github.com/Unleash/unleash-client-go/v3/context"
 	"github.com/gin-gonic/gin"
 )
@@ -63,6 +64,8 @@ func main() {
 	}
 
 	log.SetOutput(file)
+
+	unleash.WaitForReady()
 	log.Println("Started unleash-poc!")
 
 	server := gin.Default()
@@ -71,6 +74,43 @@ func main() {
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})
+	})
+
+	server.GET("/greet/v2", func(c *gin.Context) {
+		// get feature
+		featureName := "poc.greet"
+		uid := getRandomUID()
+		ctx := context.Context{
+			UserId: uid,
+		}
+
+		// POC:
+		v := api.Variant{
+			Name: "not found",
+			Payload: api.Payload{
+				Type:  "json",
+				Value: `{"status":"not found"}`,
+			},
+			Enabled: false,
+		}
+
+		variant := unleash.GetVariant(featureName, unleash.WithVariantFallback(&v), unleash.WithVariantContext(ctx))
+
+		if variant != &v {
+			c.JSON(200, gin.H{"message": "Variant is working", "variant": variant})
+			var jsonMap map[string]string
+
+			err := json.Unmarshal([]byte(variant.Payload.Value), &jsonMap)
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			variantInfo[uid] = jsonMap["greeting"]
+
+		} else {
+			c.JSON(400, gin.H{"message": "Variant is not working"})
+		}
+		log.Println(variantInfo)
 	})
 
 	// Simple GET Url for User ID:
@@ -85,6 +125,8 @@ func main() {
 		// checking if the feature is enabled:
 		if unleash.IsEnabled(featureName, unleash.WithContext(ctx)) {
 			variant := unleash.GetVariant(featureName)
+
+			fmt.Println("variant: ", variant)
 
 			var jsonMap map[string]string
 
