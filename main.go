@@ -15,15 +15,15 @@ import (
 )
 
 // Globals:
-var userIds [10]string
+var userIds [20]string
 var variantInfo map[string]string
 
 func init() {
 	unleashError := unleash.Initialize(
 		unleash.WithListener(&unleash.DebugListener{}),
 		unleash.WithAppName("my-unleash-poc-app"),
-		unleash.WithUrl("http://localhost:4242/api/"),
-		unleash.WithCustomHeaders(http.Header{"Authorization": {"4119a4b596fdc7e13dabd29601dd2a63b76da4cec263187d5ffb9514a1d5303b"}}),
+		unleash.WithUrl("https://unleash.infra.apna.co/api/"),
+		unleash.WithCustomHeaders(http.Header{"Authorization": {"195abedb43328c5f879024afffa49ba3594a845df563fccd4bc659ab05645d18"}}),
 		unleash.WithRefreshInterval(10),
 	)
 	fmt.Println(unleashError)
@@ -34,7 +34,7 @@ func init() {
 	fmt.Println("Unleash initialized!")
 
 	// Initializing User IDs:
-	userIds = [10]string{"U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8", "U9", "U10"}
+	userIds = [20]string{"U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8", "U9", "U10", "U11", "U12", "U13", "U14", "U15", "U16", "U17", "U18", "U19", "U20"}
 
 	// Initializing Map:
 	variantInfo = make(map[string]string)
@@ -46,7 +46,7 @@ func init() {
 }
 
 func getRandomUID() string {
-	num := rand.Intn(10)
+	num := rand.Intn(len(userIds))
 	fmt.Println("got random num: ", num)
 
 	if num >= len(userIds) {
@@ -78,7 +78,7 @@ func main() {
 
 	server.GET("/greet/v2", func(c *gin.Context) {
 		// get feature
-		featureName := "poc.greet"
+		featureName := "greet"
 		uid := getRandomUID()
 		ctx := context.Context{
 			UserId: uid,
@@ -116,7 +116,7 @@ func main() {
 	// Simple GET Url for User ID:
 	server.GET("/greet", func(c *gin.Context) {
 		// get feature
-		featureName := "poc.greet"
+		featureName := "greet"
 		uid := getRandomUID()
 		ctx := context.Context{
 			UserId: uid,
